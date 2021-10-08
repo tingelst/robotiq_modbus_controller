@@ -10,7 +10,7 @@ with open(os.path.join(directory, "README.md"), encoding="utf-8") as f:
 setup(
     name="robotiq_modbus_controller",
     version="0.0.0",
-    description="A library for controlling Robotiq gripper over Modbus RTU/TCP",
+    description="A library for controlling Robotiq grippers over Modbus RTU and Modbus TCP",
     author="Lars Tingelstad",
     author_email="lars.tingelstad@ntnu.no",
     license="Apache License 2.0",
