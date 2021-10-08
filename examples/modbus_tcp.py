@@ -12,16 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from robotiq_modbus_controller.driver import ModbusRtuDriver
+from robotiq_modbus_controller.driver import ModbusTcpDriver
 
 
 def main():
-    device = "/dev/ttyUSB1"
-    driver = ModbusRtuDriver(device)
+    host = "<ip address of contoller>"
+    driver = ModbusTcpDriver(host)
     driver.connect()
     driver.reset()
     driver.activate()
-
     driver.move(pos=0, speed=1, force=1)
 
 
