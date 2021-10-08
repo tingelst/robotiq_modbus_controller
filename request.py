@@ -1,11 +1,9 @@
-import struct
 from dataclasses import dataclass
-from typing import Union
 import numpy as np
 
 
 @dataclass
-class Action:
+class ActionRequest:
     act: bool = False
     gto: bool = False
     atr: bool = False
@@ -17,7 +15,7 @@ class Action:
 
 
 @dataclass
-class Options:
+class GripperOptions:
     lbp: bool = False
 
     def to_byte(self):
@@ -25,7 +23,7 @@ class Options:
 
 
 @dataclass
-class Position:
+class PositionRequest:
     pr: np.uint8 = 0
 
     def to_byte(self):
@@ -50,15 +48,15 @@ class Force:
 
 @dataclass
 class Request:
-    action: Action = Action(False, False, False, False)
-    options: Options = Options(False)
-    position: Position = Position(0)
+    action_request: ActionRequest = ActionRequest(False, False, False, False)
+    gripper_options: GripperOptions = GripperOptions(False)
+    position_request: PositionRequest = PositionRequest(0)
     speed: Speed = Speed(0)
     force: Force = Force(0)
 
     def registers(self):
         return [
-            (self.action.to_byte() << 8) + self.options.to_byte(),
-            self.position.to_byte(),
+            (self.action_request.to_byte() << 8) + self.gripper_options.to_byte(),
+            self.position_request.to_byte(),
             (self.speed.to_byte() << 8) + self.force.to_byte(),
         ]
