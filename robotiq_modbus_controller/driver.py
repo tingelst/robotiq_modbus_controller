@@ -19,7 +19,7 @@ from robotiq_modbus_controller.request import Request
 from robotiq_modbus_controller.status import Status
 
 
-class ModbusDriver:
+class RobotiqModbusDriver:
     INPUT_REGISTER: int = 0
     OUTPUT_REGISTER: int = 0
     NUM_REGISTERS: int = 3
@@ -65,13 +65,13 @@ class ModbusDriver:
         self._client.write_registers(self.INPUT_REGISTER, registers)
 
 
-class ModbusTcpDriver(ModbusDriver):
+class RobotiqModbusTcpDriver(RobotiqModbusDriver):
     def __init__(self, host: str) -> None:
         client = ModbusTcpClient(host)
         super().__init__(client)
 
 
-class ModbusRtuDriver(ModbusDriver):
+class RobotiqModbusRtuDriver(RobotiqModbusDriver):
 
     UNIT: int = 9
     INPUT_REGISTER: int = 1000

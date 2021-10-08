@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from robotiq_modbus_controller.driver import ModbusTcpDriver
+from robotiq_modbus_controller.driver import RobotiqModbusTcpDriver
 
 
 def main():
     host = "<ip address of contoller>"
-    driver = ModbusTcpDriver(host)
+    driver = RobotiqModbusTcpDriver(host)
     driver.connect()
     driver.reset()
     driver.activate()

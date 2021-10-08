@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from robotiq_modbus_controller.driver import ModbusRtuDriver
+from robotiq_modbus_controller.driver import RobotiqModbusRtuDriver
 
 
 def main():
     device = "/dev/ttyUSB1"
-    driver = ModbusRtuDriver(device)
+    driver = RobotiqModbusRtuDriver(device)
     driver.connect()
     driver.reset()
     driver.activate()
