@@ -15,6 +15,7 @@ class GripperStatus:
 @dataclass
 class FaultStatus:
     flt: np.uint8
+    kflt: np.uint8
 
 
 @dataclass
@@ -35,7 +36,7 @@ class Current:
 @dataclass
 class Status:
     gripper_status: GripperStatus = GripperStatus(0, 0, 0, 0)
-    fault_status: FaultStatus = FaultStatus(0)
+    fault_status: FaultStatus = FaultStatus(0, 0)
     position_request_echo: PositionRequestEcho = PositionRequestEcho(0)
     position: Position = Position(0)
     current: Current = Current(0)
@@ -54,6 +55,7 @@ class Status:
         status.gripper_status.sta = int(format(gripper_status, "08b")[2:4], 2)
         status.gripper_status.gto = bool(format(gripper_status, "08b")[4])
         status.gripper_status.act = bool(format(gripper_status, "08b")[7])
+        status.fault_status.kflt = int(format(fault_status, "08b")[:4], 2)
         status.fault_status.flt = int(format(fault_status, "08b")[4:], 2)
         status.position_request_echo.pr = position_request_echo
         status.position.po = position
