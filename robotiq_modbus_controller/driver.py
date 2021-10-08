@@ -1,9 +1,22 @@
+# Copyright 2021 Norwegian University of Science and Technology.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 from typing import Union, List
-import numpy as np
 from pymodbus.client.sync import ModbusSerialClient
 from pymodbus.client.sync import ModbusTcpClient
-from request import Request
-from status import Status
+from robotiq_modbus_controller.request import Request
+from robotiq_modbus_controller.status import Status
 
 
 class ModbusDriver:
@@ -29,7 +42,7 @@ class ModbusDriver:
         request.action_request.act = True
         self._write_registers(request.registers())
 
-    def move(self, *, pos: np.uint8, speed: np.uint8, force: np.uint8):
+    def move(self, *, pos: int, speed: int, force: int):
         request: Request = Request()
         request.action_request.act = True
         request.action_request.gto = True
@@ -83,28 +96,4 @@ class ModbusRtuDriver(ModbusDriver):
         return registers
 
     def _write_registers(self, registers: List[int]):
-        self._client.write_registers(
-            self.INPUT_REGISTER, registers, unit=self.UNIT
-        )
-
-
-if __name__ == "__main__":
-
-    import time
-
-    # device = "/dev/ttyUSB1"
-    # driver = ModbusRtuDriver(device)
-
-    driver = ModbusTcpDriver("192.168.250.12")
-
-    driver.connect()
-
-    driver.reset()
-    driver.activate()
-
-    def moveit(pos):
-        driver.move(pos=pos, speed=1, force=1)
-        for i in range(100):
-            # print(driver.status().position.po)
-            print(driver.status().fault_status.flt)
-            time.sleep(0.1)
+        self._client.write_registers(self.INPUT_REGISTER, registers, unit=self.UNIT)
