@@ -13,8 +13,8 @@
 # limitations under the License.
 
 from typing import Union, List
-from pymodbus.client.sync import ModbusSerialClient
-from pymodbus.client.sync import ModbusTcpClient
+from pymodbus.client import ModbusSerialClient
+from pymodbus.client import ModbusTcpClient
 from robotiq_modbus_controller.request import Request
 from robotiq_modbus_controller.status import Status
 
